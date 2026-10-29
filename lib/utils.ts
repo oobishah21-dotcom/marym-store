@@ -31,7 +31,10 @@ export function calculateVatBreakdown(totalWithVat: number, vatRate = siteConfig
  * Generate a clean WhatsApp chat link with an optional prefilled message
  */
 export function getWhatsAppLink(message?: string): string {
-  const number = siteConfig.whatsappNumber.replace(/[^0-9]/g, "");
+  let number = siteConfig.whatsappNumber.replace(/[^0-9]/g, "");
+  if (number.startsWith("03") && number.length === 11) {
+    number = "92" + number.slice(1);
+  }
   if (!message) {
     return `https://wa.me/${number}`;
   }
